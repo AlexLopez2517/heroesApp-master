@@ -15,13 +15,24 @@ export class HeroesService {
 
   crearHeroe( heroe: HeroeModel ){
 
-    return this.http.post(`${ this.url }&heroes.json`, heroe)
+    return this.http.post(`${ this.url }/heroes.json`, heroe)
       .pipe(
         map( (resp: any) =>{
           heroe.id = resp.name;
           return heroe;
         })
       );
-
   }
+
+  actualizarHeroe( heroe: HeroeModel){
+
+    const heroeTemp= {
+      ...heroe
+    };
+
+    delete heroeTemp.id;
+
+  return this.http.put(`${ this.url }/heroes/${heroe.id}.json`, heroe );
+  
+    }
 }
